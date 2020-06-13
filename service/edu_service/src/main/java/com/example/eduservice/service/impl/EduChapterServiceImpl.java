@@ -1,6 +1,7 @@
 package com.example.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.baseservice.exception.MyException;
 import com.example.eduservice.entity.EduChapter;
 import com.example.eduservice.entity.EduVideo;
 import com.example.eduservice.entity.course.ChapterVo;
@@ -44,13 +45,13 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         List<EduVideo> videos = videoService.list();
 
 
-        for (EduChapter chapter: chapters) {
+        for (EduChapter chapter : chapters) {
             ChapterVo chapterVo = new ChapterVo();
             BeanUtils.copyProperties(chapter, chapterVo);
 
             List<VideoVo> videoVos = new ArrayList<>();
-            for (EduVideo video: videos) {
-                if (video.getChapterId().equals(chapter.getId())){
+            for (EduVideo video : videos) {
+                if (video.getChapterId().equals(chapter.getId())) {
                     VideoVo videoVo = new VideoVo();
                     BeanUtils.copyProperties(video, videoVo);
                     videoVos.add(videoVo);
@@ -62,5 +63,48 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         }
 
         return chapterVos;
+    }
+
+//    /**
+//     * 添加章节
+//     */
+//    @Override
+//    public void addChapter(EduChapter chapter) {
+//        baseMapper.insert(chapter);
+//    }
+//
+//    /**
+//     * 根据id查询章节
+//     */
+//    @Override
+//    public EduChapter getChapter(String id) {
+//        return baseMapper.selectById(id);
+//    }
+//
+//    /**
+//     * 更新章节
+//     */
+//    @Override
+//    public void updateChapter(EduChapter chapter) {
+//        baseMapper.updateById(chapter);
+//    }
+
+    /**
+     * 删除章节
+     */
+    @Override
+    public boolean deleteChapter(String id) {
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id", id);
+
+        // 如果有小节，不能删除
+        int count = videoService.count(wrapper);
+
+        if (count > 0) {
+            throw new MyException(20001, "小节不为空");
+        } else {
+            int res = baseMapper.deleteById(id);
+            return res > 0;
+        }
     }
 }

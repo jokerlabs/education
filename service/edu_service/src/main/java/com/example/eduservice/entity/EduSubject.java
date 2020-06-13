@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +26,6 @@ public class EduSubject implements Serializable {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "课程类别ID")
-    @TableField
     private String id;
 
     @ApiModelProperty(value = "类别名称")
@@ -46,6 +44,4 @@ public class EduSubject implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
-
-
 }

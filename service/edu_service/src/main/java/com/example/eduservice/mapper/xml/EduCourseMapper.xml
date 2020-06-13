@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.eduservice.mapper.EduCourseMapper">
-
+<!--根据课程id查询课程确认信息-->
+    <select id="getCoursePublishInfo" resultType="com.example.eduservice.entity.vo.CoursePublishVo">
+        SELECT ec.id, ec.title, ec.cover, ec.lesson_num lessonNum,
+            es2.title subjectLevelOne, es.title subjectLevelTwo,
+            et.`name` teacherName, ec.price price,
+            ecd.description description
+        FROM `edu_course` ec
+        LEFT JOIN edu_course_description ecd
+        ON ecd.id = ec.id
+        LEFT JOIN edu_subject es
+        ON es.id = ec.subject_id
+        LEFT JOIN edu_subject es2
+        ON es2.id = ec.subject_parent_id
+        LEFT JOIN edu_teacher et
+        ON et.id = ec.teacher_id
+        WHERE ec.id=#{courseId}
+    </select>
 </mapper>

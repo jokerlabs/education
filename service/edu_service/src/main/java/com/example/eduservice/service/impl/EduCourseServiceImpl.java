@@ -4,6 +4,7 @@ import com.example.baseservice.exception.MyException;
 import com.example.eduservice.entity.EduCourse;
 import com.example.eduservice.entity.EduCourseDescription;
 import com.example.eduservice.entity.vo.CourseInfoVo;
+import com.example.eduservice.entity.vo.CoursePublishVo;
 import com.example.eduservice.mapper.EduCourseMapper;
 import com.example.eduservice.service.EduCourseDescriptionService;
 import com.example.eduservice.service.EduCourseService;
@@ -84,5 +85,13 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
 
         return courseInfoVo.getId();
+    }
+
+    /**
+     * 发布信息确认
+     */
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String id) {
+        return baseMapper.getCoursePublishInfo(id);
     }
 }

@@ -3,6 +3,9 @@ package com.example.eduservice.service;
 import com.example.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.eduservice.entity.vo.CourseInfoVo;
+import com.example.eduservice.entity.vo.CoursePublishVo;
+import com.example.eduservice.mapper.EduCourseMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
@@ -19,4 +22,6 @@ public interface EduCourseService extends IService<EduCourse> {
     CourseInfoVo getCourseInfo(String id);
 
     String updateCourseInfo(CourseInfoVo courseInfoVo);
+
+    CoursePublishVo getPublishCourseInfo(String id);
 }
