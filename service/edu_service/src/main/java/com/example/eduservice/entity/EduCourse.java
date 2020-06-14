@@ -25,7 +25,6 @@ import lombok.EqualsAndHashCode;
 public class EduCourse implements Serializable {
 
     private static final long serialVersionUID=1L;
-    public final String STATUS_NORMAL = "Normal";
 
     @ApiModelProperty(value = "课程ID")
     private String id;
