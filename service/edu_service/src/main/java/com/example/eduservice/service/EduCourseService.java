@@ -1,9 +1,11 @@
 package com.example.eduservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.eduservice.entity.vo.CourseInfoVo;
 import com.example.eduservice.entity.vo.CoursePublishVo;
+import com.example.eduservice.entity.vo.CourseQuery;
 import com.example.eduservice.mapper.EduCourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,4 +26,8 @@ public interface EduCourseService extends IService<EduCourse> {
     String updateCourseInfo(CourseInfoVo courseInfoVo);
 
     CoursePublishVo getPublishCourseInfo(String id);
+
+    Page<EduCourse> getPage(Long current, Long limit, CourseQuery courseQuery);
+
+    void deleteCourseById(String courseId);
 }

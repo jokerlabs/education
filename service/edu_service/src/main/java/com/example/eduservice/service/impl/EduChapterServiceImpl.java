@@ -1,5 +1,6 @@
 package com.example.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.baseservice.exception.MyException;
 import com.example.eduservice.entity.EduChapter;
@@ -106,5 +107,15 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             int res = baseMapper.deleteById(id);
             return res > 0;
         }
+    }
+
+    /**
+     * 根据courseId删除章节
+     */
+    @Override
+    public void removeChapterByCourseId(String courseId) {
+        QueryWrapper<EduChapter> wrapper = new QueryWrapper<>();
+        wrapper.eq("course_id", courseId);
+        baseMapper.delete(wrapper);
     }
 }
