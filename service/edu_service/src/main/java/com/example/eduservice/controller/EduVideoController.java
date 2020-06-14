@@ -54,7 +54,7 @@ public class EduVideoController {
      * TODO 同时删除视频
      */
     @DeleteMapping("/delete/{id}")
-    public Result deleteVideo(@RequestBody @PathVariable String id) {
+    public Result deleteVideo(@PathVariable String id) {
         boolean flag = videoService.removeById(id);
         if (flag) {
             return Result.ok();
