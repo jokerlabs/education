@@ -26,7 +26,7 @@ public class EduChapterController {
     EduChapterService chapterService;
 
     /**
-     * 查询章节
+     * 查询所有章节
      */
     @GetMapping("/{courseId}")
     public Result getChapters(@PathVariable String courseId) {

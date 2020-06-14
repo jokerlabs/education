@@ -42,7 +42,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         // 根据课程id查询小节
         QueryWrapper<EduVideo> videoQueryWrapper = new QueryWrapper<>();
         videoQueryWrapper.eq("course_id", id);
-        List<EduVideo> videos = videoService.list();
+        List<EduVideo> videos = videoService.list(videoQueryWrapper);
 
 
         for (EduChapter chapter : chapters) {
