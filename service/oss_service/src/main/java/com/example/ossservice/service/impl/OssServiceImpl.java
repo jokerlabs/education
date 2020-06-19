@@ -3,7 +3,7 @@ package com.example.ossservice.service.impl;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.example.ossservice.service.OssService;
-import com.example.ossservice.utils.ConstantPropertiesUtils;
+import com.example.ossservice.utils.OssConstantPropertiesUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,11 +20,11 @@ public class OssServiceImpl implements OssService {
      */
     @Override
     public String uploadAvatar(MultipartFile file) {
-        String endpoint = ConstantPropertiesUtils.END_POINT;
+        String endpoint = OssConstantPropertiesUtils.END_POINT;
         // 云账号AccessKey有所有API访问权限
-        String accessKeyId = ConstantPropertiesUtils.ACCESS_KEY_ID;
-        String accessKeySecret = ConstantPropertiesUtils.ACCESS_KEY_SECRET;
-        String bucketName = ConstantPropertiesUtils.BUCKET_NAME;
+        String accessKeyId = OssConstantPropertiesUtils.ACCESS_KEY_ID;
+        String accessKeySecret = OssConstantPropertiesUtils.ACCESS_KEY_SECRET;
+        String bucketName = OssConstantPropertiesUtils.BUCKET_NAME;
 
         try {
             // 创建OSSClient实例

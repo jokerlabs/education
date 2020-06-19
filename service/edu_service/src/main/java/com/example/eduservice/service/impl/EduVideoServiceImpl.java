@@ -20,6 +20,7 @@ public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> i
 
     /**
      * 根据courseId删除小节
+     * TODO 删除视频
      */
     @Override
     public void removeVideoByCourseId(String courseId) {
