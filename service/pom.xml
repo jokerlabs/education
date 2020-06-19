@@ -14,6 +14,7 @@
     <modules>
         <module>edu_service</module>
         <module>oss_service</module>
+        <module>vod_service</module>
     </modules>
 
     <dependencies>
