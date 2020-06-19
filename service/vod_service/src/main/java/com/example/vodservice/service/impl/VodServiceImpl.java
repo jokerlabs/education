@@ -9,11 +9,13 @@ import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.example.baseservice.exception.MyException;
 import com.example.vodservice.service.VodService;
 import com.example.vodservice.utils.VodConstantPropertiesUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 public class VodServiceImpl implements VodService {
@@ -76,6 +78,9 @@ public class VodServiceImpl implements VodService {
         }
     }
 
+    /**
+     * 根据videoId删除视频
+     */
     @Override
     public void deleteVideo(String videoId) {
         String accessKeyId = VodConstantPropertiesUtils.ACCESS_KEY_ID;
@@ -87,6 +92,29 @@ public class VodServiceImpl implements VodService {
 
             //支持传入多个视频ID，多个用逗号分隔
             request.setVideoIds(videoId);
+
+            // 删除视频
+            client.getAcsResponse(request);
+        } catch (Exception e) {
+            throw new MyException(20001, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * 删除多个视频
+     */
+    @Override
+    public void deleteVideos(List<String> videoIds) {
+        String accessKeyId = VodConstantPropertiesUtils.ACCESS_KEY_ID;
+        String accessKeySecret = VodConstantPropertiesUtils.ACCESS_KEY_SECRET;
+        try {
+            DefaultAcsClient client = initVodClient(accessKeyId, accessKeySecret);
+            // 创建request对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+
+            // 支持传入多个视频ID，多个用逗号分隔
+            // request.setVideoIds("VideoId1,VideoId2");
+            request.setVideoIds(StringUtils.join(videoIds.toArray(), ","));
 
             // 删除视频
             client.getAcsResponse(request);

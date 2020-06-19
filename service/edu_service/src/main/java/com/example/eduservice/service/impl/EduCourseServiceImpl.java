@@ -136,7 +136,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     }
 
     /**
-     * 删除课程
+     * 删除课程, 删除课程相关的所有信息
      */
     @Override
     public void deleteCourseById(String courseId) {

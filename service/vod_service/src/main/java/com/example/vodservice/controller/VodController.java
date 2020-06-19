@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vod")
 @CrossOrigin
@@ -25,9 +27,19 @@ public class VodController {
     /**
      * 删除视频
      */
-    @DeleteMapping("video/delete/{videoId}")
+    @DeleteMapping("/video/delete/{videoId}")
     public Result removeVideo(@PathVariable String videoId) {
         vodService.deleteVideo(videoId);
+        return Result.ok();
+    }
+
+    /**
+     * 删除多个视频
+     */
+    @DeleteMapping("/video/delete/")
+    public Result removeVideos(@RequestParam List<String> videoIds) {
+        System.out.println(videoIds);
+        vodService.deleteVideos(videoIds);
         return Result.ok();
     }
 }

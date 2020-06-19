@@ -91,7 +91,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
 //    }
 
     /**
-     * 删除章节
+     * 根据chapterId删除章节
      */
     @Override
     public boolean deleteChapter(String id) {

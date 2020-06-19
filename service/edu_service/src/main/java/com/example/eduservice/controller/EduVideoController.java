@@ -2,9 +2,11 @@ package com.example.eduservice.controller;
 
 
 import com.example.commonutils.Result;
+import com.example.eduservice.client.VodServiceClient;
 import com.example.eduservice.entity.EduVideo;
 import com.example.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 public class EduVideoController {
     @Autowired
     EduVideoService videoService;
+
+    @Autowired
+    VodServiceClient vodServiceClient;  // 注入vodServiceClient
 
     /**
      * 添加章节
@@ -51,11 +56,18 @@ public class EduVideoController {
 
     /**
      * 删除章节
-     * TODO 同时删除视频
      */
     @DeleteMapping("/delete/{id}")
     public Result deleteVideo(@PathVariable String id) {
+        EduVideo video = videoService.getById(id);
+        String videoId = video.getVideoSourceId();
+
         boolean flag = videoService.removeById(id);
+        // 根据videoId, 调用vodService中的方法实现视频删除
+        if (!StringUtils.isEmpty(videoId)){
+            vodServiceClient.removeVideo(videoId);
+        }
+
         if (flag) {
             return Result.ok();
         } else {
