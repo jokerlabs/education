@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Vod服务注册管理类
  */
-@FeignClient("vod-service")
+@FeignClient(name = "vod-service", fallback = VodFileDegradeFeignClient.class)
 @Component
 public interface VodServiceClient {
     /**

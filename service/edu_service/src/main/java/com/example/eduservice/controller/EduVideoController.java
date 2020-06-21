@@ -1,6 +1,7 @@
 package com.example.eduservice.controller;
 
 
+import com.example.baseservice.exception.MyException;
 import com.example.commonutils.Result;
 import com.example.eduservice.client.VodServiceClient;
 import com.example.eduservice.entity.EduVideo;
@@ -62,11 +63,16 @@ public class EduVideoController {
         EduVideo video = videoService.getById(id);
         String videoId = video.getVideoSourceId();
 
-        boolean flag = videoService.removeById(id);
         // 根据videoId, 调用vodService中的方法实现视频删除
         if (!StringUtils.isEmpty(videoId)){
-            vodServiceClient.removeVideo(videoId);
+            Result result = vodServiceClient.removeVideo(videoId);
+            if (result.getCode() == 20001) {
+                throw new MyException(20001, "删除视频失败，熔断器...");
+            }
         }
+
+        // 删除小节
+        boolean flag = videoService.removeById(id);
 
         if (flag) {
             return Result.ok();
