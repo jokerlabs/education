@@ -1,26 +1,21 @@
-package com.example.eduservice;
+package com.example.cmsservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-@EnableDiscoveryClient  // 服务发现
-@EnableFeignClients     // 服务调用
 @ComponentScan(basePackages = {"com.example"})
-public class EduServiceApplication {
-
+public class CmsServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(EduServiceApplication.class, args);
+        SpringApplication.run(CmsServiceApplication.class, args);
     }
 
     @GetMapping("/")
-    public String hello() {
-        return "Hello";
+    public String cms(){
+        return "Hello Cms";
     }
 }

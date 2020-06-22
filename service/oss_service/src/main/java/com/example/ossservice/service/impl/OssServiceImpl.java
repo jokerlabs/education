@@ -51,4 +51,41 @@ public class OssServiceImpl implements OssService {
             return null;
         }
     }
+
+    /**
+     * 上传banner
+     */
+    @Override
+    public String uploadBanner(MultipartFile file) {
+        String endpoint = OssConstantPropertiesUtils.END_POINT;
+        // 云账号AccessKey有所有API访问权限
+        String accessKeyId = OssConstantPropertiesUtils.ACCESS_KEY_ID;
+        String accessKeySecret = OssConstantPropertiesUtils.ACCESS_KEY_SECRET;
+        String bucketName = OssConstantPropertiesUtils.BUCKET_NAME;
+
+        try {
+            // 创建OSSClient实例
+            OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+            // 生成文件名+uuid
+            String filename = UUID.randomUUID().toString().replaceAll("-", "") + file.getOriginalFilename();
+            // 把文件按照上传日期进行分类
+            String datePath = new DateTime().toString("yyyy/MM/dd");
+            // 拼接
+            filename = "banner/" + datePath + "/" + filename;
+
+            // 上传文件流
+            InputStream inputStream = file.getInputStream();
+            ossClient.putObject(bucketName, filename, inputStream);
+
+            // 关闭OSSClient
+            ossClient.shutdown();
+
+            // 返回路径
+            return "https://" + bucketName + "." + endpoint + "/" + filename;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

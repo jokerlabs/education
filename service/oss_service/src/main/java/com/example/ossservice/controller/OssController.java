@@ -23,4 +23,13 @@ public class OssController {
         String url = ossService.uploadAvatar(file);
         return Result.ok().data("url", url);
     }
+
+    /**
+     * 上传banner
+     */
+    @PostMapping("/banner")
+    public Result uploadBanner(MultipartFile file) {
+        String url = ossService.uploadBanner(file);
+        return Result.ok().data("url", url);
+    }
 }
