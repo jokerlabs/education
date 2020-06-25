@@ -35,6 +35,8 @@
         <json.version>20200518</json.version>
         <nacos-discovery.version>2.2.1.RELEASE</nacos-discovery.version>
         <jwt.version>0.9.1</jwt.version>
+        <httpclient.version>4.5.12</httpclient.version>
+        <commonsio.version>2.6</commonsio.version>
     </properties>
 
     <dependencyManagement>
@@ -123,11 +125,23 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>${json.version}</version>
+            </dependency>
+
+            <!--httpclient-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commonsio.version}</version>
             </dependency>
 
             <!--日期工具栏-->
