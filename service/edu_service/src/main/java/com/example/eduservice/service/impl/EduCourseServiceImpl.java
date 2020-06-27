@@ -7,6 +7,7 @@ import com.example.eduservice.entity.EduChapter;
 import com.example.eduservice.entity.EduCourse;
 import com.example.eduservice.entity.EduCourseDescription;
 import com.example.eduservice.entity.EduVideo;
+import com.example.eduservice.entity.front.FrontCourseInfo;
 import com.example.eduservice.entity.vo.CourseInfoVo;
 import com.example.eduservice.entity.vo.CoursePublishVo;
 import com.example.eduservice.entity.vo.CourseQuery;
@@ -154,5 +155,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         if (res == 0){
             throw new MyException(20001,"删除失败");
         }
+    }
+
+    /**
+     * 前端课程显示
+     * @param id 课程id
+     */
+    @Override
+    public FrontCourseInfo getFrontCourseInfo(String id) {
+        return baseMapper.getCourseFrontInfo(id);
     }
 }
