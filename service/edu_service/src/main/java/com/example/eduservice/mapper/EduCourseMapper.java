@@ -2,6 +2,8 @@ package com.example.eduservice.mapper;
 
 import com.example.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.eduservice.entity.front.FrontCourse;
+import com.example.eduservice.entity.front.FrontCourseInfo;
 import com.example.eduservice.entity.vo.CoursePublishVo;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +18,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
     public CoursePublishVo getCoursePublishInfo(String courseId);
+    public FrontCourseInfo getCourseFrontInfo(String courseId);
 }

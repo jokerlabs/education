@@ -4,8 +4,11 @@ import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadStreamRequest;
 import com.aliyun.vod.upload.resp.UploadStreamResponse;
 import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.example.baseservice.exception.MyException;
 import com.example.vodservice.service.VodService;
 import com.example.vodservice.utils.VodConstantPropertiesUtils;
@@ -121,6 +124,36 @@ public class VodServiceImpl implements VodService {
         } catch (Exception e) {
             throw new MyException(20001, e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * 获取播放凭证
+     * @param id 视频id
+     */
+    @Override
+    public String getVideoPlayAuth(String id) {
+        String accessKeyId = VodConstantPropertiesUtils.ACCESS_KEY_ID;
+        String accessKeySecret = VodConstantPropertiesUtils.ACCESS_KEY_SECRET;
+        // 创建初始化对象
+        DefaultAcsClient client = initVodClient(accessKeyId, accessKeySecret);
+        // 创建获取视频播放凭证的request和response对象
+        GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+
+        // 向request对象里边设置值
+        request.setVideoId(id);
+        GetVideoPlayAuthResponse response = null;
+        try {
+            response = client.getAcsResponse(request);
+            //播放凭证
+            System.out.print("PlayAuth = " + response.getPlayAuth() + "\n");
+            //VideoMeta信息
+            System.out.print("VideoMeta.Title = " + response.getVideoMeta().getTitle() + "\n");
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+        } catch (ClientException e) {
+            //System.out.print("ErrorMessage = " + e.getLocalizedMessage());
+            throw new MyException(20001, e.getLocalizedMessage());
+        }
+        return response.getPlayAuth();
     }
 
     /**

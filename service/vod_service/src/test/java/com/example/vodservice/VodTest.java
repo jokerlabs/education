@@ -124,11 +124,10 @@ public class VodTest {
         DefaultAcsClient client = initVodClient(accessKeyId, accessKeySecret);
         // 创建获取视频播放凭证的request和response对象
         GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
-        GetVideoPlayAuthResponse response;
 
         // 向request对象里边设置值
-        request.setVideoId("20a5daae54374aacae05a345e85c1831");
-        response = client.getAcsResponse(request);
+        request.setVideoId("4c979f292821482db60c6afa0c2c0296");
+        GetVideoPlayAuthResponse response = client.getAcsResponse(request);
 
         try {
             //播放凭证

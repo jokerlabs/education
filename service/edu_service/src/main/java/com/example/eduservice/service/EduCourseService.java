@@ -3,6 +3,8 @@ package com.example.eduservice.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.eduservice.entity.front.FrontCourse;
+import com.example.eduservice.entity.front.FrontCourseInfo;
 import com.example.eduservice.entity.vo.CourseInfoVo;
 import com.example.eduservice.entity.vo.CoursePublishVo;
 import com.example.eduservice.entity.vo.CourseQuery;
@@ -30,4 +32,6 @@ public interface EduCourseService extends IService<EduCourse> {
     Page<EduCourse> getPage(Long current, Long limit, CourseQuery courseQuery);
 
     void deleteCourseById(String courseId);
+
+    FrontCourseInfo getFrontCourseInfo(String id);
 }
