@@ -26,4 +26,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     void register(RegisterVo registerVo);
 
     UcenterMember getMemberInfoByToken(HttpServletRequest request);
+
+    UcenterMember getMemberInfoById(String id);
 }

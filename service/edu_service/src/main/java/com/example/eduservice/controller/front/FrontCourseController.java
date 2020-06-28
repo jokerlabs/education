@@ -2,10 +2,10 @@ package com.example.eduservice.controller.front;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.commonutils.JwtUtils;
 import com.example.commonutils.Result;
-import com.example.eduservice.entity.EduChapter;
+import com.example.eduservice.client.OrderServiceClient;
 import com.example.eduservice.entity.EduCourse;
-import com.example.eduservice.entity.EduTeacher;
 import com.example.eduservice.entity.course.ChapterVo;
 import com.example.eduservice.entity.front.FrontCourse;
 import com.example.eduservice.entity.front.FrontCourseInfo;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,9 @@ public class FrontCourseController {
 
     @Autowired
     EduChapterService chapterService;
+
+    @Autowired
+    OrderServiceClient orderServiceClient;
 
     @PostMapping("/{page}/{limit}")
     public Result getList(@PathVariable Long page, @PathVariable Long limit,
@@ -85,9 +89,20 @@ public class FrontCourseController {
      * @param courseId 课程id
      */
     @GetMapping("/info/{courseId}")
-    public Result getInfo(@PathVariable String courseId) {
+    public Result getInfo(@PathVariable String courseId, HttpServletRequest request) {
         FrontCourseInfo courseInfo = courseService.getFrontCourseInfo(courseId);
         List<ChapterVo> chapterList = chapterService.getChapters(courseId);
+
+        String memberIdByJwtToken = JwtUtils.getMemberIdByJwtToken(request);
+        System.out.println("======================123"+memberIdByJwtToken);
+        if (memberIdByJwtToken != null) {
+            // 获取用户是否获取课程
+            boolean status = orderServiceClient.getStatus(courseId, memberIdByJwtToken);
+
+            return Result.ok().data("courseInfo", courseInfo).data("chapterList", chapterList).data("isGet", status);
+
+        }
+
         return Result.ok().data("courseInfo", courseInfo).data("chapterList", chapterList);
     }
 }
