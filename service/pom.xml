@@ -19,6 +19,7 @@
 <!--        <module>acl_service</module>-->
         <module>msm_service</module>
         <module>ucenter_service</module>
+        <module>order_service</module>
     </modules>
 
     <dependencies>

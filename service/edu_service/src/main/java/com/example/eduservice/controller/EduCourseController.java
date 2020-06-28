@@ -4,12 +4,16 @@ package com.example.eduservice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.commonutils.Result;
+import com.example.commonutils.orderVo.EduCourseVo;
 import com.example.eduservice.entity.EduCourse;
+import com.example.eduservice.entity.course.ChapterVo;
+import com.example.eduservice.entity.front.FrontCourseInfo;
 import com.example.eduservice.entity.vo.CourseInfoVo;
 import com.example.eduservice.entity.vo.CoursePublishVo;
 import com.example.eduservice.entity.vo.CourseQuery;
 import com.example.eduservice.service.EduCourseService;
 import org.apache.ibatis.annotations.Delete;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -102,6 +106,18 @@ public class EduCourseController {
     public Result deleteById(@PathVariable String courseId){
         courseService.deleteCourseById(courseId);
         return Result.ok();
+    }
+
+    /**
+     * 根据课程id查询课程信息
+     * @param courseId 课程id
+     */
+    @GetMapping("/api/{courseId}")
+    public EduCourseVo getInfo(@PathVariable String courseId) {
+        FrontCourseInfo courseInfo = courseService.getFrontCourseInfo(courseId);
+        EduCourseVo courseVo = new EduCourseVo();
+        BeanUtils.copyProperties(courseInfo, courseVo);
+        return courseVo;
     }
 }
 

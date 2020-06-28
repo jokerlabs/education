@@ -110,4 +110,13 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
         return  baseMapper.selectById(memberId);
     }
+
+    /**
+     * 根据id查询信息
+     * @param id 用户id
+     */
+    @Override
+    public UcenterMember getMemberInfoById(String id) {
+        return baseMapper.selectById(id);
+    }
 }

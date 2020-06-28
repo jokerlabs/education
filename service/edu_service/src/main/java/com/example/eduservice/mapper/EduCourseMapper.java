@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
-    public CoursePublishVo getCoursePublishInfo(String courseId);
-    public FrontCourseInfo getCourseFrontInfo(String courseId);
+    CoursePublishVo getCoursePublishInfo(String courseId);
+    FrontCourseInfo getCourseFrontInfo(String courseId);
 }
