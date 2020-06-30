@@ -28,4 +28,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     UcenterMember getMemberInfoByToken(HttpServletRequest request);
 
     UcenterMember getMemberInfoById(String id);
+
+    Integer countRegister(String day);
 }

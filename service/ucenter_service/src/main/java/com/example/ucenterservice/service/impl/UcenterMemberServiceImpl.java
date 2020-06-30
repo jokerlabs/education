@@ -119,4 +119,15 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
     public UcenterMember getMemberInfoById(String id) {
         return baseMapper.selectById(id);
     }
+
+    /**
+     * 统计一天的注册人数
+     * @param day 日期
+     */
+    @Override
+    public Integer countRegister(String day) {
+        QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
+        wrapper.eq("DATE(gmt_create)", day);
+        return baseMapper.selectCount(wrapper);
+    }
 }

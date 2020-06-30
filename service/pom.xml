@@ -20,6 +20,7 @@
         <module>msm_service</module>
         <module>ucenter_service</module>
         <module>order_service</module>
+        <module>statistics_service</module>
     </modules>
 
     <dependencies>
